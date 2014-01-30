@@ -28,6 +28,7 @@ namespace PyramidPanic
             this.effect = SpriteEffects.None;
             this.imageNumber = 1;
             this.sourceRect = new Rectangle(this.imageNumber * 32, 0, 32, 32);
+            this.rotation = (float)Math.PI / 2;
         }
 
         public void Initialize()
@@ -39,15 +40,23 @@ namespace PyramidPanic
 
         public new void Update(GameTime gameTime)
         {
-            if (Input.LevelDetectKeyUp(Keys.Down))
-            {
-                this.explorer.State = this.explorer.Idle;
-                this.explorer.Idle.Initialize();
-            }
-            
             this.explorer.Position += this.velocity;
             this.destinationRect.X = (int)this.explorer.Position.X;
             this.destinationRect.Y = (int)this.explorer.Position.Y;
+
+            if (this.explorer.Position.Y > 480 - 16)
+            {
+                this.explorer.Position -= this.velocity;
+                this.explorer.State = this.explorer.IdleWalk;
+                this.explorer.IdleWalk.Initialize();
+                this.explorer.IdleWalk.Rotation = (float)Math.PI / 2;
+            }
+            if (Input.EdgeDetectKeyUp(Keys.Down))
+            {
+                this.explorer.State = this.explorer.Idle;
+                this.explorer.Idle.Initialize();
+                this.explorer.Idle.Rotation = (float)Math.PI / 2;
+            }
             
             // Zorgt voor de animatie 
             base.Update(gameTime);

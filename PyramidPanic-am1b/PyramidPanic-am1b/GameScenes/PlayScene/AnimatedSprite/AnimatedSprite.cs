@@ -19,6 +19,8 @@ namespace PyramidPanic
         protected SpriteEffects effect = SpriteEffects.None;
         private float timer = 0f;
         protected int imageNumber = 0;
+        protected float rotation;
+        private Vector2 pivot;
 
 
         // Constructor
@@ -30,6 +32,7 @@ namespace PyramidPanic
                                                  32,
                                                  32);
             this.sourceRect = new Rectangle(this.imageNumber * 32, 0, 32, 32);
+            this.pivot = new Vector2(16f, 16);
         }
 
         public void Update(GameTime gameTime)
@@ -62,8 +65,8 @@ namespace PyramidPanic
                                               this.destinationRect,
                                               this.sourceRect,
                                               Color.White,
-                                              0f,
-                                              Vector2.Zero,
+                                              this.rotation,
+                                              this.pivot,
                                               this.effect,
                                               0f);
         }

@@ -23,6 +23,10 @@ namespace PyramidPanic
         {
             set { this.effect = value; }
         }
+        public float Rotation
+        {
+            set { this.rotation = value; }
+        }
 
         // Constructor van deze toestands class krijgt altijd het object mee
         // van de hoofdclass Explorer als argument
@@ -53,6 +57,16 @@ namespace PyramidPanic
             {
                 this.explorer.State = this.explorer.WalkLeft;
                 this.explorer.WalkLeft.Initialize();
+            }
+            if (Input.LevelDetectKeyDown(Keys.Down))
+            {
+                this.explorer.State = this.explorer.WalkDown;
+                this.explorer.WalkDown.Initialize();
+            }
+            if (Input.LevelDetectKeyDown(Keys.Up))
+            {
+                this.explorer.State = this.explorer.WalkUp;
+                this.explorer.WalkUp.Initialize();
             }
         }
 
